@@ -178,6 +178,7 @@ class Game:
         self.score_white = 2
         self.active_player = "B"
         self.is_game_over = False
+        self.winner = "Noone"
 
     # Place a pawn on the board (checks if the move is legal before placing it)
     # It takes a position (x, y), a Board object instance and a color
@@ -246,8 +247,10 @@ class Game:
         print("Le joueur white a: " + str(self.score_white) + " points")
         if (self.score_black > self.score_white):
             print("Le joueur noir a gagné !")
+            self.winner = "B"
         elif (self.score_white > self.score_black):
             print("Le joueur blanc a gagné !")
+            self.winner = "W"
         else:
             print("Égalité !")
 
