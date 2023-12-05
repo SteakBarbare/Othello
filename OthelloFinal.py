@@ -295,3 +295,53 @@ while not othello_game.is_game_over:
         move_coordinates[1] = int(input("Coordonnées en Y: "))
         othello_game.place_pawn(
             move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
+
+
+# Loop until the game is over
+def play_games(number_of_games):
+    white_victories = 0
+    black_victories = 0
+    for current_game in range(number_of_games):
+        # Create a new board & a new game instances
+        othello_board = Board(8)
+        othello_game = Game()
+
+        # Fill the board with tiles
+        othello_board.create_board()
+
+        # Draw the board
+        othello_board.draw_board("Content")
+        # Create 2 bots
+        myBot = Bot()
+        otherBot = Bot()
+
+        while not othello_game.is_game_over:
+            # First player / bot logic goes here
+            if(othello_game.active_player == "B"):
+                move_coordinates = [0, 0]
+                move_coordinates[0] = int(input("Coordonnées en X: "))
+                move_coordinates[1] = int(input("Coordonnées en Y: "))
+                othello_game.place_pawn(
+                move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
+
+
+            # Second player / bot logic goes here
+            else:
+                move_coordinates = [0, 0]
+                move_coordinates[0] = int(input("Coordonnées en X: "))
+                move_coordinates[1] = int(input("Coordonnées en Y: "))
+                othello_game.place_pawn(
+                move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
+        
+        if(othello_game.winner == "B"):
+            black_victories += 1
+        elif(othello_game.winner == "W"):
+            white_victories += 1
+        
+    
+    print("End of the games, showing scores: ")
+    print("Black player won " + str(black_victories) + " times")
+    print("White player won " + str(white_victories) + " times")
+        
+
+play_games(100)
