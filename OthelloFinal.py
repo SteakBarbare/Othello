@@ -16,9 +16,9 @@ class Board:
                 #  Gives it the coordinates (depending on x_pos and y_pos)
                 #  Add it to the board property
                 if x_pos != 0 and x_pos != 7 and y_pos != 0 and y_pos != 7:
-                    self.board.append(Tile(x_pos, y_pos, "O", "o"))
+                    self.board.append(Tile(x_pos, y_pos, "🟩", "🟩"))
                 else:
-                    self.board.append(Tile(x_pos, y_pos, "X", "o"))
+                    self.board.append(Tile(x_pos, y_pos, "X", "🟩"))
         self.place_initial_pawns()
 
     #  This will print the game board, depending on the data_type
@@ -26,7 +26,7 @@ class Board:
     def draw_board(self, data_type):
         display_board = []
         line_breaker = 0
-        print([0, '0', '1', '2', '3', '4', '5', '6', '7'])
+        print([0, ' 0', ' 1', ' 2', ' 3', ' 4', ' 5', ' 6', ' 7'])
         for board_index in self.board:
             if (board_index.x_pos == 0):
                 display_board.append(board_index.y_pos)
@@ -47,10 +47,10 @@ class Board:
     def place_initial_pawns(self):
         #  We pick the 4 central tiles
         #  And place 2 black pawns and 2 white pawns
-        self.board[27].content = "W"
-        self.board[28].content = "B"
-        self.board[35].content = "B"
-        self.board[36].content = "W"
+        self.board[27].content = "⚪"
+        self.board[28].content = "⚫"
+        self.board[35].content = "⚫"
+        self.board[36].content = "⚪"
 
     # Check if the position in inside the board
     # Return true or false depending if it is inside or not
@@ -60,10 +60,10 @@ class Board:
         else:
             return True
 
-    # Check if the tile is an empty tile ("o")
+    # Check if the tile is an empty tile ("🟩")
     # Return true or false depending if it is empty or not
     def is_tile_empty(self, x_pos, y_pos):
-        if self.board[(x_pos) + y_pos * 8].content == "o":
+        if self.board[(x_pos) + y_pos * 8].content == "🟩":
             return True
         else:
             return False
@@ -88,10 +88,10 @@ class Board:
         ]
 
         # Opposite of the color of the placed pawn
-        if color == "W":
-            awaited_color = "B"
+        if color == "⚪":
+            awaited_color = "⚫"
         else:
-            awaited_color = "W"
+            awaited_color = "⚪"
 
         current_x_pos = x_pos
         current_y_pos = y_pos
@@ -160,7 +160,7 @@ class Board:
 
 
 class Tile:
-    #   Type is used to check if its an "O" empty tile or a "X" border tile
+    #   Type is used to check if its an "🟩" empty tile or a "X" border tile
     #   Content is used to check if a pawn is placed o (Empty), B (Black), W (White)
     def __init__(self, x_pos, y_pos, type, content):
         self.x_pos = x_pos
@@ -176,7 +176,7 @@ class Game:
     def __init__(self):
         self.score_black = 2
         self.score_white = 2
-        self.active_player = "B"
+        self.active_player = "⚫"
         self.is_game_over = False
         self.winner = "Noone"
 
@@ -187,7 +187,7 @@ class Game:
         if not board_instance.is_on_board(x_pos, y_pos):
             print("Coordinates outside the board")
         else:
-            if board_instance.board[(x_pos) + y_pos * 8].content == "o":
+            if board_instance.board[(x_pos) + y_pos * 8].content == "🟩":
                 tiles_to_flip = board_instance.is_legal_move(
                     x_pos, y_pos, color)
                 if not tiles_to_flip:
@@ -207,11 +207,11 @@ class Game:
     # Change the active player color from black to white or white to black
     def change_active_player(self):
         # Prend self.active_player et change la couleur du joueur actif
-        if self.active_player == "B":
-            self.active_player = "W"
+        if self.active_player == "⚫":
+            self.active_player = "⚪"
             print("C'est au tour du joueur blanc")
         else:
-            self.active_player = "B"
+            self.active_player = "⚫"
             print("C'est au tour du joueur noir")
 
     # Update the players score after a successful move
@@ -220,9 +220,9 @@ class Game:
         w_score = 0
         b_score = 0
         for tile_index in board_instance.board:
-            if tile_index.content == "W":
+            if tile_index.content == "⚪":
                 w_score += 1
-            elif tile_index.content == "B":
+            elif tile_index.content == "⚫":
                 b_score += 1
         self.score_black = b_score
         self.score_white = w_score
@@ -247,10 +247,10 @@ class Game:
         print("Le joueur white a: " + str(self.score_white) + " points")
         if (self.score_black > self.score_white):
             print("Le joueur noir a gagné !")
-            self.winner = "B"
+            self.winner = "⚫"
         elif (self.score_white > self.score_black):
             print("Le joueur blanc a gagné !")
-            self.winner = "W"
+            self.winner = "⚪"
         else:
             print("Égalité !")
 
@@ -281,29 +281,12 @@ othello_board.draw_board("Content")
 myBot = Bot()
 otherBot = Bot()
 
-# Loop until the game is over
-while not othello_game.is_game_over:
-    # First player / bot logic goes here
-    if (othello_game.active_player == "B"):
-        move_coordinates = [0, 0]
-        move_coordinates[0] = int(input("Coordonnées en X: "))
-        move_coordinates[1] = int(input("Coordonnées en Y: "))
-        othello_game.place_pawn(
-            move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
-
-    # Second player / bot logic goes here
-    else:
-        move_coordinates = [0, 0]
-        move_coordinates[0] = int(input("Coordonnées en X: "))
-        move_coordinates[1] = int(input("Coordonnées en Y: "))
-        othello_game.place_pawn(
-            move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
-
 
 # Loop until the game is over
 def play_games(number_of_games):
     white_victories = 0
     black_victories = 0
+    
     for current_game in range(number_of_games):
         # Create a new board & a new game instances
         othello_board = Board(8)
@@ -320,7 +303,7 @@ def play_games(number_of_games):
 
         while not othello_game.is_game_over:
             # First player / bot logic goes here
-            if(othello_game.active_player == "B"):
+            if(othello_game.active_player == "⚫"):
                 move_coordinates = [0, 0]
                 move_coordinates[0] = int(input("Coordonnées en X: "))
                 move_coordinates[1] = int(input("Coordonnées en Y: "))
@@ -336,9 +319,9 @@ def play_games(number_of_games):
                 othello_game.place_pawn(
                 move_coordinates[0], move_coordinates[1], othello_board, othello_game.active_player)
         
-        if(othello_game.winner == "B"):
+        if(othello_game.winner == "⚫"):
             black_victories += 1
-        elif(othello_game.winner == "W"):
+        elif(othello_game.winner == "⚪"):
             white_victories += 1
         
     
