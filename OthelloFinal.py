@@ -266,22 +266,6 @@ class Bot:
         print("Vérifier quels coups sont jouables")
         print("Et renvoyer les coordonnées")
 
-
-# Create a new board & a new game instances
-othello_board = Board(8)
-othello_game = Game()
-
-# Fill the board with tiles
-othello_board.create_board()
-
-# Draw the board
-othello_board.draw_board("Content")
-
-# Create 2 bots
-myBot = Bot()
-otherBot = Bot()
-
-
 # Loop until the game is over
 def play_games(number_of_games):
     white_victories = 0
