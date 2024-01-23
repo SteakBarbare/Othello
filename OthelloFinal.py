@@ -243,20 +243,6 @@ class Game:
         elif (self.score_white > self.score_black):
             self.winner = "⚪"
 
-        playable_moves = [[2, 4, 7], [6, 3, 7]]
-            if(depth > 0):
-                depth -= 1
-                for sauce in playable_moves:
-                    new_board = deepcopy(main_board)
-                    new_game = deepcopy(main_game)
-                    new_game.place_pawn(sauce[0], sauce[1], new_board, new_game.active_player)
-
-                    opponent_points = self.check_valid_moves(new_board, new_game, depth)
-                    sauce[2] -= opponent_points
-
-            return random.choice(playable_moves)
-
-
 class Bot:
     def __init__(self):
         self.name = "Name of your Bot"
