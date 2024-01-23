@@ -1,4 +1,5 @@
 import random
+import time
 
 # Object used to create new boards
 
@@ -262,6 +263,9 @@ def play_games(number_of_games):
     black_win_icons = ""
     
     for current_game in range(number_of_games):
+
+        timeout = time.time() + 0.6
+
         # Create a new board & a new game instances
         othello_board = Board(8)
         othello_game = Game()
@@ -274,6 +278,13 @@ def play_games(number_of_games):
         otherBot = Bot()
 
         while not othello_game.is_game_over:
+
+            if(time.time() > timeout):
+                othello_game.check_for_winner()
+                othello_game.is_game_over = True
+                print("Player " + othello_game.active_player + " caused a Timeout")
+                break
+
             # First player / bot logic goes here
             if(othello_game.active_player == "⚫"):
                 move_coordinates = [0, 0]
