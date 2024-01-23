@@ -256,7 +256,7 @@ class Bot:
         print("Et renvoyer les coordonnées")
 
 # Loop until the game is over
-def play_games(number_of_games):
+def play_games(number_of_games, timeout_value):
     white_victories = 0
     black_victories = 0
     white_win_icons = ""
@@ -264,7 +264,7 @@ def play_games(number_of_games):
     
     for current_game in range(number_of_games):
 
-        timeout = time.time() + 0.6
+        timeout = time.time() + timeout_value
 
         # Create a new board & a new game instances
         othello_board = Board(8)
@@ -318,4 +318,4 @@ def play_games(number_of_games):
     print("White player won " + str(white_victories) + " times")
         
 
-play_games(100)
+play_games(100, 0.8)
